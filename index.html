@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-adsense-account" content="ca-pub-1062634640427422">
+    <title>主页</title>
+    <!-- 引入Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- 配置Tailwind自定义主题（明亮绿色系） -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#22c55e',
+                        secondary: '#14b8a6',
+                        accent: '#4ade80',
+                        dark: '#059669',
+                        light: '#f0fdf4'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                },
+            }
+        }
+    </script>
+
+    <!-- 自定义工具类 -->
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            }
+            .backdrop-blur {
+                backdrop-filter: blur(12px);
+            }
+            .transition-underline {
+                position: relative;
+            }
+            .transition-underline::after {
+                content: '';
+                position: absolute;
+                width: 0;
+                height: 2px;
+                bottom: -2px;
+                left: 0;
+                background-color: currentColor;
+                transition: width 0.3s ease;
+            }
+            .transition-underline:hover::after {
+                width: 100%;
+            }
+            .natural-element {
+                position: absolute;
+                opacity: 0.15;
+                z-index: 0;
+                pointer-events: none;
+            }
+            .read-more-link {
+                position: relative;
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                transition: all 0.3s ease;
+            }
+            .read-more-link:hover {
+                gap: 0.75rem;
+            }
+            .read-more-link i {
+                transition: transform 0.3s ease;
+            }
+            .read-more-link:hover i {
+                transform: translateX(4px);
+            }
+            .card-read-more {
+                font-size: 0.9rem;
+                color: rgba(240, 253, 244, 0.8);
+            }
+            .card-read-more:hover {
+                color: #4ade80;
+            }
+        }
+    </style>
+
+    <style>
+        /* 全局样式 */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            overflow-x: hidden;
+        }
+
+        /* 背景圆形动画 */
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(140px);
+            opacity: 0.65;
+            z-index: 0;
+            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        /* 渐变背景动画 */
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            25% { background-position: 50% 75%; }
+            50% { background-position: 100% 50%; }
+            75% { background-position: 50% 25%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .bg-gradient-animate {
+            background: linear-gradient(135deg, #064e3b, #059669, #14b8a6, #4ade80, #86efac);
+            background-size: 400% 400%;
+            animation: gradientShift 25s ease infinite;
+        }
+
+        /* 导航栏滚动效果 */
+        .nav-scrolled {
+            background-color: rgba(240, 253, 244, 0.25);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+        }
+
+        /* 视差元素基础样式 */
+        .parallax-element {
+            will-change: transform;
+            transform: translateZ(0);
+        }
+
+        /* 自然元素动画 */
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+
+        @keyframes sway {
+            0% { transform: rotate(-3deg) translateX(0); }
+            50% { transform: rotate(3deg) translateX(10px); }
+            100% { transform: rotate(-3deg) translateX(0); }
+        }
+
+        .leaf {
+            animation: sway 15s ease-in-out infinite;
+            transform-origin: center top;
+        }
+
+        .wave {
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .petal {
+            animation: float 25s ease-in-out infinite;
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-animate min-h-screen text-light relative">
+<!-- 自然元素装饰 -->
+<!-- 叶片元素 -->
+<svg class="natural-element leaf" width="120" height="180" viewBox="0 0 120 180" style="top: 15%; left: 10%;">
+    <path d="M60,0 C80,40 100,80 90,120 C80,160 40,180 60,120 C80,60 40,40 60,0 Z" fill="#22c55e"/>
+</svg>
+
+<svg class="natural-element leaf" width="90" height="140" viewBox="0 0 90 140" style="top: 60%; left: 85%;">
+    <path d="M45,0 C65,30 80,60 70,90 C60,120 30,140 45,90 C60,40 30,30 45,0 Z" fill="#14b8a6"/>
+</svg>
+
+<!-- 波浪线条 -->
+<svg class="natural-element wave" width="400" height="100" viewBox="0 0 400 100" style="bottom: 10%; left: -5%;">
+    <path d="M0,50 C100,0 150,100 250,50 C350,0 400,100 400,50 L400,100 L0,100 Z" fill="#4ade80"/>
+</svg>
+
+<svg class="natural-element wave" width="300" height="80" viewBox="0 0 300 80" style="top: 30%; right: 5%;">
+    <path d="M0,40 C75,0 125,80 200,40 C275,0 300,80 300,40 L300,80 L0,80 Z" fill="#059669"/>
+</svg>
+
+<!-- 花瓣元素 -->
+<svg class="natural-element petal" width="80" height="80" viewBox="0 0 80 80" style="top: 20%; right: 20%;">
+    <path d="M40,10 C60,10 70,30 70,40 C70,50 60,70 40,70 C20,70 10,50 10,40 C10,30 20,10 40,10 Z" fill="#86efac"/>
+</svg>
+
+<svg class="natural-element petal" width="60" height="60" viewBox="0 0 60 60" style="bottom: 30%; left: 20%;">
+    <path d="M30,5 C45,5 55,20 55,30 C55,40 45,55 30,55 C15,55 5,40 5,30 C5,20 15,5 30,5 Z" fill="#22c55e"/>
+</svg>
+
+<!-- 动态背景圆形元素 -->
+<div class="circle bg-primary/40 w-[700px] h-[700px] top-[-380px] left-[-200px] parallax-element"></div>
+<div class="circle bg-secondary/40 w-[600px] h-[600px] bottom-[-300px] left-[10%] parallax-element"></div>
+<div class="circle bg-accent/40 w-[650px] h-[650px] top-[20%] right-[-300px] parallax-element"></div>
+
+<!-- 装饰性小圆形 -->
+<div class="circle bg-primary/20 w-[300px] h-[300px] top-[40%] left-[5%] parallax-element"></div>
+<div class="circle bg-accent/20 w-[250px] h-[250px] bottom-[10%] right-[15%] parallax-element"></div>
+
+<!-- 导航栏 -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-700 py-4 px-6 md:px-12">
+    <div class="container mx-auto flex justify-end">
+        <ul class="flex space-x-8 items-center">
+            <li>
+                <a href="https://blog.lightsnow.fun/" class="transition-underline flex items-center gap-2 hover:text-accent transition-colors duration-300">
+                    <i class="fa fa-book"></i>
+                    <span class="hidden sm:inline">博客</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://lobe.lightsnow.fun/" class="transition-underline flex items-center gap-2 hover:text-primary transition-colors duration-300">
+                    <i class="fa fa-comments"></i>
+                    <span class="hidden sm:inline">Chat</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://demo.lightsnow.fun/" class="transition-underline flex items-center gap-2 hover:text-primary transition-colors duration-300">
+                    <i class="fa fa-comments"></i>
+                    <span class="hidden sm:inline">gateway</span>
+                </a>
+            </li>
+            <li>
+                <a href="#about" class="transition-underline flex items-center gap-2 hover:text-light transition-colors duration-300">
+                    <i class="fa fa-user"></i>
+                    <span class="hidden sm:inline">关于</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- 主页内容 -->
+<main class="relative z-10 container mx-auto px-6 md:px-12 pt-32 pb-20 min-h-screen flex flex-col justify-center items-center text-center">
+    <h1 class="text-[clamp(2.5rem,8vw,5rem)] font-bold mb-6 leading-tight text-shadow parallax-element" data-speed="-0.05">
+        探索创意与<br class="md:hidden">技术分享
+    </h1>
+    <p class="text-[clamp(1rem,3vw,1.5rem)] text-light/90 max-w-2xl mb-12 parallax-element" data-speed="-0.03">
+        探索创意与技术的交汇点，这里有我的思考、项目和交流空间
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 parallax-element" data-speed="-0.02">
+        <a href="#explore" class="px-8 py-3 bg-primary hover:bg-primary/90 text-light rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
+            开始探索
+        </a>
+        <a href="#learn-more" class="px-8 py-3 bg-transparent border-2 border-light/30 hover:border-light/60 text-light rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
+            了解更多
+        </a>
+    </div>
+</main>
+
+<!-- 博客部分 -->
+<section id="blog" class="relative z-10 py-20 px-6 md:px-12 bg-dark/40 backdrop-blur">
+    <div class="container mx-auto">
+        <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold mb-12 text-center parallax-element" data-speed="-0.03">博客</h2>
+        <div class="text-center text-light/80 max-w-3xl mx-auto">
+            <p class="mb-8">发现最新的技术分享。</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                <!-- 博客卡片示例 1 -->
+                <div class="bg-dark/60 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex flex-col">
+                    <h3 class="text-xl font-semibold mb-2">nextjs 使用思源字体</h3>
+                    <p class="text-light/70 text-sm mb-4 flex-grow">发挥Next.js在页面加载速度和搜索引擎优化方面的优势，又能通过思源字体的优秀排版特性提升用户体验。</p>
+                    <a href="https://blog.lightsnow.fun/posts/nextjs" class="read-more-link card-read-more mt-auto">
+                        阅读更多
+                        <i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- 博客卡片示例 2 -->
+                <div class="bg-dark/60 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex flex-col">
+                    <h3 class="text-xl font-semibold mb-2">Vercel blog自动更新</h3>
+                    <p class="text-light/70 text-sm mb-4 flex-grow">GitHub Action自动提交代码，触发Vercel定时构建，实现blog自动更新</p>
+                    <a href="https://blog.lightsnow.fun/posts/schedule" class="read-more-link card-read-more mt-auto">
+                        阅读更多
+                        <i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- 博客卡片示例 3 -->
+                <div class="bg-dark/60 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex flex-col">
+                    <h3 class="text-xl font-semibold mb-2">open mirror开源镜像</h3>
+                    <p class="text-light/70 text-sm mb-4 flex-grow">主流技术栈镜像,包含docker,cdn,python</p>
+                    <a href="https://blog.lightsnow.fun/posts/open-mirror" class="read-more-link card-read-more mt-auto">
+                        阅读更多
+                        <i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 整体阅读更多链接 -->
+            <a href="https://blog.lightsnow.fun" class="read-more-link text-accent hover:text-accent/80 font-medium">
+                查看所有文章
+                <i class="fa fa-long-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Chat部分 -->
+<section id="chat" class="relative z-10 py-20 px-6 md:px-12">
+    <div class="container mx-auto">
+        <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold mb-12 text-center parallax-element" data-speed="-0.03">Chat</h2>
+        <div class="max-w-2xl mx-auto bg-dark/30 backdrop-blur rounded-2xl p-6 md:p-8 shadow-xl">
+            <div class="flex flex-col h-80">
+                <div class="flex-1 overflow-y-auto mb-4 space-y-4">
+                    <div class="flex items-start gap-3">
+                        <div class="w-8 h-8 rounded-full bg-primary/80 flex items-center justify-center flex-shrink-0">
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <div class="bg-dark/50 rounded-lg rounded-tl-none px-4 py-2 max-w-[80%]">
+                            你好！有什么可以帮助你的吗？
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 justify-end">
+                        <div class="bg-primary/80 rounded-lg rounded-tr-none px-4 py-2 max-w-[80%]">
+                            我想了解更多关于动态背景设计的技巧。
+                        </div>
+                        <div class="w-8 h-8 rounded-full bg-light/20 flex items-center justify-center flex-shrink-0">
+                            <i class="fa fa-robot"></i>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <div class="w-8 h-8 rounded-full bg-primary/80 flex items-center justify-center flex-shrink-0">
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <div class="bg-dark/50 rounded-lg rounded-tl-none px-4 py-2 max-w-[80%]">
+                            动态背景设计需要注意平衡视觉吸引力和功能性，避免分散用户对主要内容的注意力。渐变速度和元素移动应该缓慢而自然。
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-2">
+                    <input type="text" placeholder="输入消息..." class="flex-1 bg-dark/50 border border-light/20 rounded-full px-4 py-2 focus:outline-none focus:border-primary">
+                    <button class="bg-primary hover:bg-primary/90 rounded-full w-10 h-10 flex items-center justify-center transition-colors">
+                        <i class="fa fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 关于部分 -->
+<section id="about" class="relative z-10 py-20 px-6 md:px-12 bg-dark/40 backdrop-blur">
+    <div class="container mx-auto">
+        <h2 class="text-[clamp(1.8rem,5vw,3rem)] font-bold mb-12 text-center parallax-element" data-speed="-0.03">关于</h2>
+        <div class="text-center text-light/90 max-w-2xl mx-auto">
+            <p class="mb-6">我们致力于打造充满生机与活力的数字体验，融合自然元素与现代设计，为用户带来清新舒适的网络体验。</p>
+            <p>通过精心设计的动态效果和和谐的色彩搭配，我们希望创造出既美观又实用的数字产品，让技术与自然和谐共存。</p>
+        </div>
+    </div>
+</section>
+
+<!-- 页脚 -->
+<footer class="relative z-10 py-8 px-6 md:px-12 text-center text-light/60">
+    <div class="container mx-auto">
+        <p>© 2023 自然风格设计. 保留所有权利.</p>
+    </div>
+</footer>
+
+<script>
+    // 获取DOM元素
+    const navbar = document.getElementById('navbar');
+    const circles = document.querySelectorAll('.circle');
+    const parallaxElements = document.querySelectorAll('.parallax-element');
+    const naturalElements = document.querySelectorAll('.natural-element');
+
+    // 导航栏滚动效果
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            navbar.classList.add('nav-scrolled');
+        } else {
+            navbar.classList.remove('nav-scrolled');
+        }
+
+        // 多层次视差效果
+        const scrollPos = window.scrollY;
+
+        // 背景圆形视差
+        circles.forEach((circle, index) => {
+            const depth = 0.01 + (index * 0.015);
+            const movement = -(scrollPos * depth);
+            circle.style.transform = `translateY(${movement}px)`;
+        });
+
+        // 内容元素视差
+        parallaxElements.forEach(element => {
+            const speed = element.dataset.speed || -0.02;
+            const movement = scrollPos * parseFloat(speed);
+            element.style.transform = `translateY(${movement}px)`;
+        });
+
+        // 自然元素视差 - 与其他元素不同的速度
+        naturalElements.forEach((element, index) => {
+            const depth = 0.005 + (index * 0.01);
+            const movement = scrollPos * depth;
+            element.style.transform = `${element.style.transform.split(';')[0]} translateY(${movement}px)`;
+        });
+    });
+
+    // 增强的圆形浮动动画
+    function animateCircles() {
+        circles.forEach((circle, index) => {
+            const startX = Math.random() * 150 - 75;
+            const startY = Math.random() * 150 - 75;
+            const duration = 25 + (index * 7);
+            const minOpacity = 0.5 + (Math.random() * 0.2);
+            const maxOpacity = minOpacity + 0.15;
+
+            circle.style.transform = `translate(${startX}px, ${startY}px)`;
+            circle.style.opacity = minOpacity;
+
+            function moveCircle() {
+                const newX = Math.random() * 150 - 75;
+                const newY = Math.random() * 150 - 75;
+                const newOpacity = minOpacity + (Math.random() * (maxOpacity - minOpacity));
+
+                circle.style.transition = `
+            transform ${duration}s cubic-bezier(0.3, 0, 0.2, 1),
+            opacity ${(duration * 0.7)}s ease-in-out
+          `;
+                circle.style.transform = `translate(${newX}px, ${newY}px)`;
+                circle.style.opacity = newOpacity;
+
+                setTimeout(moveCircle, duration * 1000);
+            }
+
+            setTimeout(moveCircle, index * 2000 + (Math.random() * 3000));
+        }
+    }
+
+    // 自然元素随机化动画参数
+    function randomizeNaturalElements() {
+        naturalElements.forEach((element, index) => {
+            // 随机调整每个元素的动画延迟和持续时间
+            const delay = Math.random() * 5;
+            const durationMultiplier = 0.5 + Math.random();
+
+            element.style.animationDelay = `${delay}s`;
+            element.style.animationDuration = `${parseFloat(element.style.animationDuration) * durationMultiplier}s`;
+
+            // 随机初始旋转角度
+            const initialRotation = Math.random() * 10 - 5;
+            element.style.transform = `rotate(${initialRotation}deg)`;
+        });
+    }
+
+    // 页面加载完成后初始化动画
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            animateCircles();
+            randomizeNaturalElements();
+        }, 500);
+    });
+</script>
+</body>
+</html>
